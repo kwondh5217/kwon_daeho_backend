@@ -15,7 +15,6 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
-
     apply plugin: 'io.spring.dependency-management'
 
     java {
@@ -28,6 +27,15 @@ subprojects {
         imports {
             mavenBom "org.springframework.boot:spring-boot-dependencies:4.0.1"
         }
+    }
+
+    // 공통 Lombok (모든 서브모듈에 적용)
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
     }
 
     tasks.withType(Test).configureEach {

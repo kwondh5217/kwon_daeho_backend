@@ -1,5 +1,6 @@
 package com.extension.test.accounts;
 
+import com.extension.test.exception.AccountNotFoundException;
 import com.extension.test.exception.DuplicateAccountNumberException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,5 +23,12 @@ public class AccountService {
       log.warn("중복된 계좌번호: {}", accountNumber, e);
       throw new DuplicateAccountNumberException(accountNumber, e);
     }
+  }
+
+  @Transactional
+  public void deleteAccount(String accountNumber) {
+    Account account = accountRepository.findByAccountNumber(accountNumber)
+        .orElseThrow(() -> new AccountNotFoundException(accountNumber));
+    account.delete();
   }
 }

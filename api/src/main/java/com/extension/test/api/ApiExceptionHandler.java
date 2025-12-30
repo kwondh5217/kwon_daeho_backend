@@ -1,6 +1,7 @@
 package com.extension.test.api;
 
 import com.extension.test.api.ApiResponse.FieldError;
+import com.extension.test.exception.AccountNotFoundException;
 import com.extension.test.exception.DuplicateAccountNumberException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,6 +39,15 @@ public class ApiExceptionHandler {
         ErrorCode.INVALID_REQUEST.code(),
         ErrorCode.INVALID_REQUEST.defaultMessage(),
         errors
+    );
+  }
+
+  @ExceptionHandler(AccountNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ApiResponse<Void> accountNotFound(AccountNotFoundException e) {
+    return ApiResponse.fail(
+        ErrorCode.ACCOUNT_NOT_FOUND.code(),
+        ErrorCode.ACCOUNT_NOT_FOUND.defaultMessage()
     );
   }
 }

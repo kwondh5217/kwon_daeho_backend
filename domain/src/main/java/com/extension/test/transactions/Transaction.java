@@ -41,4 +41,15 @@ public class Transaction {
 
   @Column(name = "failure_reason")
   private String failureReason;
+
+  public static Transaction depositSuccess(Long accountId, long amount) {
+    Transaction tx = new Transaction();
+    tx.transactionType = TransactionType.DEPOSIT;
+    tx.status = TransactionStatusType.SUCCESS;
+    tx.toAccountId = accountId;
+    tx.amount = amount;
+    tx.fee = 0L;
+    tx.occurredAt = LocalDateTime.now();
+    return tx;
+  }
 }

@@ -7,12 +7,6 @@ plugins {
 group = 'com.extension'
 version = '0.0.1-SNAPSHOT'
 
-allprojects {
-    repositories {
-        mavenCentral()
-    }
-}
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
@@ -25,8 +19,12 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom "org.springframework.boot:spring-boot-dependencies:4.0.1"
+            mavenBom "org.springframework.boot:spring-boot-dependencies:3.3.4"
         }
+    }
+
+    repositories {
+        mavenCentral()
     }
 
     dependencies {

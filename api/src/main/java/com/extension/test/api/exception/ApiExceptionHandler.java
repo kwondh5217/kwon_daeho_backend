@@ -17,6 +17,24 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
+  @ExceptionHandler(IllegalArgumentException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ApiResponse<Void> illegalArgument(IllegalArgumentException e) {
+    return ApiResponse.fail(
+        ErrorCode.INVALID_REQUEST.code(),
+        e.getMessage()
+    );
+  }
+
+  @ExceptionHandler(IllegalStateException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ApiResponse<Void> illegalState(IllegalStateException e) {
+    return ApiResponse.fail(
+        ErrorCode.INVALID_REQUEST.code(),
+        e.getMessage()
+    );
+  }
+
   @ExceptionHandler(DuplicateAccountNumberException.class)
   @ResponseStatus(HttpStatus.CONFLICT)
   public ApiResponse<Void> duplicateAccount(DuplicateAccountNumberException e) {
@@ -61,5 +79,4 @@ public class ApiExceptionHandler {
         ErrorCode.DAILY_WITHDRAW_LIMIT_EXCEEDED.defaultMessage()
     );
   }
-
 }

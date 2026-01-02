@@ -16,6 +16,8 @@ public class TransactionController {
 
     record DepositRequest(long amount) {}
     record DepositResponse(Long transactionId) {}
+    record WithdrawRequest(long amount) {}
+    record WithdrawResponse(Long transactionId) {}
 
     @PostMapping("/{accountNumber}/deposit")
     public ResponseEntity<ApiResponse<DepositResponse>> deposit(
@@ -26,5 +28,16 @@ public class TransactionController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.success(new DepositResponse(txId)));
+    }
+
+    @PostMapping("/{accountNumber}/withdraw")
+    public ResponseEntity<ApiResponse<WithdrawResponse>> withdraw(
+        @PathVariable String accountNumber,
+        @Valid @RequestBody WithdrawRequest req
+    ) {
+        Long txId = transactionService.withdraw(accountNumber, req.amount());
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(ApiResponse.success(new WithdrawResponse(txId)));
     }
 }

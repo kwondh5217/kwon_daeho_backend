@@ -52,4 +52,15 @@ public class Transaction {
     tx.occurredAt = LocalDateTime.now();
     return tx;
   }
+
+  public static Transaction withdrawSuccess(Long accountId, long amount) {
+    Transaction tx = new Transaction();
+    tx.transactionType = TransactionType.WITHDRAW;
+    tx.status = TransactionStatusType.SUCCESS;
+    tx.fromAccountId = accountId;
+    tx.amount = amount;
+    tx.fee = 0L;
+    tx.occurredAt = LocalDateTime.now();
+    return tx;
+  }
 }

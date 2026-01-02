@@ -29,7 +29,7 @@ class AccountTest {
         // when / then
         assertThatThrownBy(() -> account.deposit(-1000))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("금액은 음수일 수 없습니다");
+                .hasMessageContaining("금액은 0원보다 커야합니다.");
     }
 
     @DisplayName("삭제된 계좌는 입금할 수 없다")
@@ -67,7 +67,7 @@ class AccountTest {
         // when / then
         assertThatThrownBy(() -> account.withdraw(-1000))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("금액은 음수일 수 없습니다");
+                .hasMessageContaining("금액은 0원보다 커야합니다.");
     }
 
     @DisplayName("잔액이 부족하면 출금할 수 없다")
